@@ -25,7 +25,7 @@ const Register = () => {
               <img className='company-logo' src='https://www.shipcomwireless.com/img/shipcom-logo-black.svg' alt='logo' />
               <div className='form-heading mt-3'>
                 <h2>Welcome</h2>
-                <p>Login to Labs Monitoring System</p>
+                <p>Register to Labs Monitoring System</p>
               </div>
               <div className='form '>
                 <div class="coolinput">
@@ -44,7 +44,7 @@ const Register = () => {
                   {show ? <AiFillEye size={20} className='eye-btn' onClick={() => setShow(!show)} /> : <AiOutlineEyeInvisible size={20} className='eye-btn' onClick={() => setShow(!show)} />}
                 </div>
                 <div className='my-3'>
-                  <Button className='btn login-btn'>Login</Button>
+                  <Button className='btn login-btn'>Register</Button>
                   <div className='text-end'>
                     <Link to='/register' className='color-dary-gray'>Forgot Password?</Link>
                   </div>

@@ -14,9 +14,17 @@ html {
 .fw-400 {
   font-weight: 400 !important;
 }
+.fw-500 {
+  font-weight: 500 !important;
+}
+.fw-600 {
+  font-weight: 600 !important;
+}
+
 .fw-bold {
   font-weight: bold;
 }
+
 .color-primary {
   color: #4e2c90 !important;
 }
@@ -24,7 +32,9 @@ html {
 .bg-white {
   background: #ffffff;
 }
-
+.color-dary-gray {
+  color: #858585;
+}
 .loging-side-image {
   width: 100%;
   height: 100%;
@@ -51,9 +61,7 @@ html {
   max-width: 100%;
 }
 
-.color-dary-gray {
-  color: #858585;
-}
+
 
 .coolinput label.text {
   font-size: 0.75rem;
@@ -82,7 +90,7 @@ html {
   border: 2px #4e2c90 solid;
 }
 
-.coolinput .input-field:focus + .coolinput label {
+.coolinput .input-field:focus+.coolinput label {
   color: #4e2c90 !important;
 }
 
@@ -118,8 +126,8 @@ html {
 }
 
 .search-icon {
-  position: relative;
-  left: 25px;
+  position: absolute;
+  left: 5px;
 }
 
 table {
@@ -161,9 +169,12 @@ table td:last-child {
 .edit-icon:hover {
   color: #4e2c90 !important;
 }
-.offcanvas.show:not(.hiding), .offcanvas.showing {
+
+.offcanvas.show:not(.hiding),
+.offcanvas.showing {
   border-radius: 20px 0 0 20px !important;
 }
+
 .offcanvas.offcanvas-end {
   width: 350px !important;
 }
@@ -172,6 +183,7 @@ table td:last-child {
   width: 100px;
   border-radius: 50%;
 }
+
 .user-icon {
   background: #f3f5f8;
   padding: 5px;
@@ -179,18 +191,42 @@ table td:last-child {
   height: 35px;
   border-radius: 50%;
 }
+
 .user-icon .icon {
   background: #f3f5f8;
 }
 
-.detail-drawer p{
+.detail-drawer p {
   font-size: 14px;
 }
+
 .detail-drawer span {
   font-size: 12px;
 }
+
 /* add-user- */
 
+
+
+/* loan */
+
+.card {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+  padding: 10px !important;
+}
+
+.loan-title span{
+  font-weight: 500;
+  color: #4e2c90;
+  border-bottom: 2px solid #864cfc;
+  padding: 0 15px 15px 15px;
+  text-transform: uppercase;
+}
+.loan-title {
+  padding-bottom: 15px;
+}
+
+/* loan */
 @media (max-width: 414px) {
   .coolinput .input-field {
     width: 300px;
