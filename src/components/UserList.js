@@ -91,7 +91,7 @@ const UserList = () => {
           </Row>
           <Row className='w-100 my-3'>
             <Col xs={12}>
-              {userData && userData ? <>
+              {data && data ? <>
                 <Table className='user-table' responsive>
                   <thead>
                     <tr>
@@ -104,7 +104,7 @@ const UserList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {userData && userData.map((curElm) => {
+                    {data && data.map((curElm) => {
                       const { firstName, id, gender, email, phone, eyeColor, image } = curElm
                       return (
                         <tr>

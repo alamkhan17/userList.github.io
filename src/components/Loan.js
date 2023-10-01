@@ -1,20 +1,58 @@
 import React, { useState } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormGroup, Label } from 'reactstrap';
+import loanType from './data.json'
 
 const Loan = () => {
     const [modal, setModal] = useState(false);
     const [payout, setPayOut] = useState('all')
+    const [allPercentage, setAllPercentage] = useState(0)
+    const [selectedProduct, setSelectedProduct] = useState([])
+    const [selectedAll, setSelectedAll] = useState(false)
 
     const toggle = () => setModal(!modal);
 
-    const loanType = [
-        { id: 1, type: 'Home Loan' },
-        { id: 2, type: 'Loan Against Property' },
-        { id: 3, type: 'Personal Loan' },
-        { id: 4, type: 'Business Loan' },
-        { id: 5, type: 'Life Insurance' },
-        { id: 6, type: 'Health Insurance' }
-    ]
+    const handleAllPercenteage = (e) => {
+        if (selectedProduct.length > 0) {
+            setAllPercentage(e.target.value)
+        } else {
+            //show error - please select product
+            setAllPercentage('')
+        }
+    }
+    const handleSelect = (value) => {
+        let percentage
+        if (value === true) {
+            
+            console.log(selectedProduct)
+            if (payout === 'all') {
+                percentage = allPercentage
+                setSelectedProduct([]);
+            } else {
+                percentage = 0
+            }
+
+            // if (!arr.some(el => el.id === elm.id))
+            //      arr.push({ id, username: name });
+            loanType.forEach((elm, index, array) => {
+                console.log(elm)
+                
+                setSelectedProduct((oldArray) => [...oldArray, {
+                    category_name: elm.category_name,
+                    id: elm.id,
+                    percentage: percentage
+                }] );
+                if(index === array.length-1){
+                    console.log('selectedProduct')
+                }else{
+                    console.log("index",index)
+                }
+            })
+        }
+        setSelectedAll(value)
+        console.log(value)
+        
+    }
+    console.log(selectedProduct)
     return (
         <>
             <div>
@@ -46,18 +84,18 @@ const Loan = () => {
                             {payout === 'all' ? <div className='d-flex justify-content-between align-items-center'>
                                 <span className='fw-500'>Enter Flat payout</span>
                                 <div className='d-flex justify-content-end align-items-center'>
-                                    <Input className='w-25 mx-3' type='text' />
+                                    <Input className='w-25 mx-3' type='number' value={allPercentage} onChange={(e) => handleAllPercenteage(e)} />
                                     %
                                 </div>
                             </div> : <></>}
                             <div className='d-flex justify-content-between align-items-center mt-3'>
-                                <span className='fw-500 color-dary-gray'>Enter Flat payout</span>
+                                <span className='fw-500 color-dary-gray'>Sub Product</span>
                                 <span className='fw-500 color-dary-gray'>Payout %</span>
                             </div>
 
                             <div className='product-list mt-3'>
                                 <div>
-                                    <Input id='select-all' type='checkbox' /> <Label for='select-all'>Select All</Label>
+                                    <Input id='select-all' type='checkbox' checked={selectedAll} onChange={(e) => handleSelect(e.target.checked)} /> <Label for='select-all'>Select All</Label>
                                 </div>
                             </div>
                             {loanType && loanType.map((curElm) => {
@@ -65,7 +103,7 @@ const Loan = () => {
                                     <>
                                         <div className='product-list mt-2 d-flex justify-content-between align-items-center'>
                                             <div>
-                                                <Input id={curElm.id} type='checkbox' /> <Label for={curElm.id}>{curElm.type}</Label>
+                                                <Input id={curElm.id} type='checkbox' /> <Label for={curElm.id}>{curElm.category_name}</Label>
                                             </div>
                                             <div className='d-flex justify-content-end align-items-center'>
                                                 <Input className='w-25 mx-3' type='text' disabled={payout === 'all'} />
