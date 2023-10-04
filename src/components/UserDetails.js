@@ -75,8 +75,8 @@ const UserDetails = ({ id, show, setShow }) => {
                                     <span className='color-dary-gray mx-1'>Full Name</span>
                                 </div>
                                 <div className='mt-3'>
-                                    <p className='m-0 mx-1 color-primary fw-bold'>{data.firstName} {data.maidenName} {data.lastName}</p>
-                                    <span className='color-dary-gray mx-1'>Full Name</span>
+                                    <p className='m-0 mx-1 color-primary fw-bold'>{data.phone}</p>
+                                    <span className='color-dary-gray mx-1'>Mobile Number</span>
                                 </div>
                             </Col>
                         </Row>
@@ -91,6 +91,14 @@ const UserDetails = ({ id, show, setShow }) => {
                                 <div>
                                     <p className='m-0 mx-1 color-primary fw-bold'>{data.birthDate}</p>
                                     <span className='color-dary-gray mx-1'>Birth Date</span>
+                                </div>
+                                <div>
+                                    <p className='m-0 mx-1 color-primary fw-bold'>{data.bloodGroup}</p>
+                                    <span className='color-dary-gray mx-1'>Blood Group</span>
+                                </div>
+                                <div>
+                                    <p className='m-0 mx-1 color-primary fw-bold'>{data.age}</p>
+                                    <span className='color-dary-gray mx-1'>Blood Age</span>
                                 </div>
                             </Col>
                         </Row>
