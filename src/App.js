@@ -23,7 +23,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route index path='/login' element={<LoginIn />} />
+          <Route index path='/' element={<Navigate to='/login' />} />
+          <Route path='/login' element={<LoginIn />} />
           <Route path='/register' element={<Register />} />
           <Route path='/user-list' element={<UserList />} />
           <Route path='/loan-page' element={<Loan />} />

@@ -9,6 +9,7 @@ const Loan = () => {
     const [selectedProduct, setSelectedProduct] = useState([])
     const [selectedAll, setSelectedAll] = useState(false)
 
+    var loanTypeValue = loanType
     const toggle = () => setModal(!modal);
 
     const handleAllPercenteage = (e) => {
@@ -22,7 +23,7 @@ const Loan = () => {
     const handleSelect = (value) => {
         let percentage
         if (value === true) {
-            
+
             console.log(selectedProduct)
             if (payout === 'all') {
                 percentage = allPercentage
@@ -35,22 +36,22 @@ const Loan = () => {
             //      arr.push({ id, username: name });
             loanType.forEach((elm, index, array) => {
                 console.log(elm)
-                
+
                 setSelectedProduct((oldArray) => [...oldArray, {
                     category_name: elm.category_name,
                     id: elm.id,
                     percentage: percentage
-                }] );
-                if(index === array.length-1){
+                }]);
+                if (index === array.length - 1) {
                     console.log('selectedProduct')
-                }else{
-                    console.log("index",index)
+                } else {
+                    console.log("index", index)
                 }
             })
         }
         setSelectedAll(value)
         console.log(value)
-        
+
     }
     console.log(selectedProduct)
     return (
@@ -100,17 +101,15 @@ const Loan = () => {
                             </div>
                             {loanType && loanType.map((curElm) => {
                                 return (
-                                    <>
-                                        <div className='product-list mt-2 d-flex justify-content-between align-items-center'>
-                                            <div>
-                                                <Input id={curElm.id} type='checkbox' /> <Label for={curElm.id}>{curElm.category_name}</Label>
-                                            </div>
-                                            <div className='d-flex justify-content-end align-items-center'>
-                                                <Input className='w-25 mx-3' type='text' disabled={payout === 'all'} />
-                                                %
-                                            </div>
+                                    <div className='product-list mt-2 d-flex justify-content-between align-items-center' key={curElm.id}>
+                                        <div>
+                                            <Input id={curElm.id} type='checkbox' /> <Label for={curElm.id}>{curElm.category_name}</Label>
                                         </div>
-                                    </>
+                                        <div className='d-flex justify-content-end align-items-center'>
+                                            <Input className='w-25 mx-3' type='text' disabled={payout === 'all'} />
+                                            %
+                                        </div>
+                                    </div>
                                 )
                             })}
                         </div>

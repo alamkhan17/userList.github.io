@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Col, Input, Row } from 'reactstrap'
 import loginSide from '../assets/images/medical-lab.jpg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AiFillEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 const LoginIn = () => {
@@ -9,6 +9,61 @@ const LoginIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [show, setShow] = useState(false)
+  const [passwordValid, setPasswordValid] = useState(true)
+  const [emailValid, setEmailValid] = useState(true)
+  const navigate = useNavigate();
+
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+
+  var users = localStorage.getItem('users');
+  if (users === undefined || users === null) {
+    users = [];
+  } else {
+    users = JSON.parse(users)
+  }
+
+  console.log(users)
+
+  const handleCheck = () => {
+    if (!emailRegex.test(email)) {
+      setEmailValid(false)
+      return false
+    } else if (password.length <= 6) {
+      setPasswordValid(false)
+      return false
+    } else {
+      return true
+    }
+  }
+
+  const handleEmail = (value) => {
+    setEmail(value)
+    setEmailValid(true)
+    if (!emailRegex.test(email)) {
+      setEmailValid(false)
+    }
+  }
+  const handlePassword = (value) => {
+    setPassword(value)
+    setPasswordValid(true)
+    if (password.length < 6) {
+      setPasswordValid(false)
+    }
+  }
+
+  const handleLogin = () => {
+    console.log(email)
+    console.log(password)
+    var valid = handleCheck()
+    if (valid) {
+      var found = users.some(el => el.email === email && el.password === password);
+      console.log(found)
+      if (found) {
+        navigate('/user-list')
+      }
+    }
+  }
 
   return (
     <div className='login w-100'>
@@ -27,20 +82,24 @@ const LoginIn = () => {
                 <p>Login to Labs Monitoring System</p>
               </div>
               <div className='form '>
-                <div class="coolinput">
-                  <label for="input" class="text">Email ID</label>
-                  <Input className='input-field' type="email" name="input" class="input" value={email} onChange={(e) => setEmail(e.target.value)} />
-
+                <div className="coolinput">
+                  <label htmlFor="email" className="text">Email ID</label>
+                  <Input id='email' className='input-field input' type="email" name="input" value={email} onChange={(e) => handleEmail(e.target.value)} invalid={!emailValid} />
+                  {!emailValid ? <div> <span>Enter valid Email</span> </div> : <></>}
                 </div>
-                <div class="coolinput">
-                  <label for="input" class="text">Password</label>
-                  <Input className='input-field' type={show ? 'text' : 'password'} name="input" class="input" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <div className="coolinput">
+                  <label htmlFor="password" className="text">Password</label>
+                  <Input id='password' className='input-field input' type={show ? 'text' : 'password'} name="input" value={password} onChange={(e) => handlePassword(e.target.value)} invalid={!passwordValid} />
                   {show ? <AiFillEye size={20} className='eye-btn' onClick={() => setShow(!show)} /> : <AiOutlineEyeInvisible size={20} className='eye-btn' onClick={() => setShow(!show)} />}
+                  {!passwordValid && password.length < 6 ? <div> <span>Enter valid Password</span> </div> : <></>}
                 </div>
                 <div className='my-3'>
-                  <Button className='btn login-btn'>Login</Button>
+                  <Button className='btn login-btn' onClick={handleLogin}>Login</Button>
+                  <div className='text-end color-dary-gray'>Don't have account ?
+                    <Link to='/register' className='color-primary'> Create Account</Link>
+                  </div>
                   <div className='text-end'>
-                    <Link to='/register' className='color-dary-gray'>Forgot Password?</Link>
+                    <Link to='/login' className='color-dary-gray'>Forgot Password?</Link>
                   </div>
                 </div>
               </div>

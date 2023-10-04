@@ -13,7 +13,7 @@ const UserList = () => {
 
   const [data, setData] = useState([])
   const [userData, setUserData] = useState([])
-  const [searchVal, setSearchVal] = useState('')
+  // const [searchVal, setSearchVal] = useState('')
   const [userId, setUserId] = useState()
   const [show, setShow] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -25,7 +25,7 @@ const UserList = () => {
     try {
       await axios.get('https://dummyjson.com/users').then((resp) => {
         setData(resp.data.users)
-        setUserData(data)
+        setUserData(resp.data.users)
         setLoading(false)
         console.log(resp.data.users)
       })
@@ -49,10 +49,12 @@ const UserList = () => {
   // }
 
   const handleSearch = (e) => {
-    setSearchVal(e.target.value)
+    // setSearchVal(e.target.value)
+    const searchVal = e.target.value
     if (searchVal === '') { setUserData(data); return; }
     const filterData = userData.filter((item) => {
-      if (item.toLowerCase().includes(searchVal.toLocaleLowerCase())) {
+      console.log(item);
+      if (item.firstName.toLowerCase().includes(searchVal.toLowerCase())) {
         return item
       }
     })
@@ -60,7 +62,7 @@ const UserList = () => {
   }
 
   console.log(userId)
-  console.log(searchVal)
+  console.log(userData)
   return (
     <>
       <div className='user-list py-5'>
@@ -82,7 +84,7 @@ const UserList = () => {
             <Col lg={5} md={6} sm={12}>
               <div className='d-flex align-items-center position-relative'>
                 <PiMagnifyingGlass className='search-icon' size={20} />
-                <Input className='search-field' type='text' placeholder='Search' value={searchVal} onChange={(e) => handleSearch(e)} />
+                <Input className='search-field' type='text' placeholder='Search with name' onChange={(e) => handleSearch(e)} />
                 <div className='d-flex align-items-center mx-2'>
                   <BiFilterAlt className='mx-2' /> <span className='color-dary-gray'>Filter</span>
                 </div>
@@ -91,7 +93,7 @@ const UserList = () => {
           </Row>
           <Row className='w-100 my-3'>
             <Col xs={12}>
-              {data && data ? <>
+              {userData && userData ? <>
                 <Table className='user-table' responsive>
                   <thead>
                     <tr>
@@ -104,10 +106,10 @@ const UserList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data && data.map((curElm) => {
+                    {userData && userData.map((curElm) => {
                       const { firstName, id, gender, email, phone, eyeColor, image } = curElm
                       return (
-                        <tr>
+                        <tr key={id}>
                           <td style={{ borderLeft: `5px solid ${eyeColor}` }}>{id}</td>
                           <td className='color-primary'><div className='d-flex align-items-center'> <img className='tbl-profile-image' src={image} alt='profile' /> {firstName}</div></td>
                           <td>{gender}</td>
